@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Barbershop | Agendamento Online</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="icon">✦</span>
+            <h1>CLASSIC BARBERSHOP</h1>
+        </div>
+        <div class="nav-actions">
+            <button class="btn-nav" onclick="showSection('client')">Agendar Horário</button>
+            <button class="btn-nav-outline" onclick="showSection('admin')">Área do Barbeiro</button>
+        </div>
+    </nav>
+
+    <!-- Client Section -->
+    <section id="client-section" class="section active">
+        <div class="hero">
+            <div class="hero-content">
+                <span class="overline">EST. 2026</span>
+                <h2 class="hero-title">Agende seu Corte</h2>
+                <p class="hero-subtitle">Experiência premium de cuidados masculinos</p>
+            </div>
+        </div>
+
+        <div class="booking-flow">
+            <!-- Step 1: Service Selection -->
+            <div class="step active" id="step-1">
+                <div class="step-header">
+                    <span class="step-badge">01</span>
+                    <h3>Escolha o Serviço</h3>
+                </div>
+                <div class="services-grid" id="services-container">
+                    <!-- Services injected by JS -->
+                </div>
+            </div>
+
+            <!-- Step 2: Date & Time -->
+            <div class="step" id="step-2">
+                <div class="step-header">
+                    <span class="step-badge">02</span>
+                    <h3>Escolha Data e Horário</h3>
+                </div>
+                <div class="datetime-wrapper">
+                    <div class="date-selector">
+                        <label>Selecione a data</label>
+                        <input type="date" id="date-input" class="input-dark">
+                    </div>
+                    <div class="time-selector">
+                        <label>Horários disponíveis</label>
+                        <div class="time-grid" id="time-container">
+                            <!-- Time slots injected by JS -->
+                        </div>
+                    </div>
+                </div>
+                <div class="step-actions">
+                    <button class="btn-text" onclick="goToStep(1)">← Voltar</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Client Info & Confirmation -->
+            <div class="step" id="step-3">
+                <div class="step-header">
+                    <span class="step-badge">03</span>
+                    <h3>Complete seu Agendamento</h3>
+                </div>
+                
+                <div class="booking-summary">
+                    <div class="summary-card">
+                        <div class="summary-row">
+                            <span class="summary-label">Serviço</span>
+                            <span class="summary-value" id="summary-service">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Data</span>
+                            <span class="summary-value" id="summary-date">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Horário</span>
+                            <span class="summary-value" id="summary-time">-</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span class="summary-label">Total</span>
+                            <span class="summary-value" id="summary-price">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="client-form">
+                    <div class="form-group">
+                        <label>Seu nome completo</label>
+                        <input type="text" id="client-name" class="input-dark" placeholder="Ex: João Silva">
+                    </div>
+                    <div class="form-group">
+                        <label>Seu telefone</label>
+                        <input type="tel" id="client-phone" class="input-dark" placeholder="(11) 99999-9999">
+                    </div>
+                    <div class="form-group">
+                        <label>Observações (opcional)</label>
+                        <textarea id="client-notes" class="input-dark textarea" placeholder="Alguma preferência especial?"></textarea>
+                    </div>
+                </div>
+
+                <div class="step-actions">
+                    <button class="btn-text" onclick="goToStep(2)">← Voltar</button>
+                    <button class="btn-primary" onclick="sendToWhatsApp()">
+                        <span>Confirmar via WhatsApp</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Section -->
+    <section id="admin-section" class="section">
+        <!-- Login Screen -->
+        <div id="admin-login" class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <span class="auth-icon">✦</span>
+                    <h2>Área do Barbeiro</h2>
+                    <p>Acesso restrito</p>
+                </div>
+                <div class="auth-form">
+                    <div class="form-group">
+                        <label>Senha de acesso</label>
+                        <input type="password" id="admin-password" class="input-dark" placeholder="Digite sua senha">
+                    </div>
+                    <button class="btn-primary btn-full" onclick="login()">Entrar</button>
+                    <p class="auth-hint">Senha padrão: barbearia2024</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="admin-dashboard" class="dashboard hidden">
+            <div class="dashboard-header">
+                <h2>Painel de Controle</h2>
+                <button class="btn-outline" onclick="logout()">Sair</button>
+            </div>
+
+            <div class="dashboard-tabs">
+                <button class="tab active" onclick="switchTab('services', this)">Serviços</button>
+                <button class="tab" onclick="switchTab('schedules', this)">Horários</button>
+                <button class="tab" onclick="switchTab('bookings', this)">Agendamentos</button>
+            </div>
+
+            <!-- Services Tab -->
+            <div class="tab-panel active" id="panel-services">
+                <div class="panel-header">
+                    <h3>Gerenciar Serviços</h3>
+                    <button class="btn-primary" onclick="toggleServiceForm()">+ Novo Serviço</button>
+                </div>
+                
+                <div class="form-card hidden" id="service-form">
+                    <div class="form-row">
+                        <input type="text" id="new-service-name" class="input-dark" placeholder="Nome do serviço">
+                        <input type="number" id="new-service-price" class="input-dark" placeholder="Preço R$">
+                        <input type="text" id="new-service-duration" class="input-dark" placeholder="Duração (ex: 45min)">
+                    </div>
+                    <textarea id="new-service-desc" class="input-dark textarea" placeholder="Descrição do serviço"></textarea>
+                    <div class="form-actions">
+                        <button class="btn-text" onclick="toggleServiceForm()">Cancelar</button>
+                        <button class="btn-primary" onclick="addService()">Salvar Serviço</button>
+                    </div>
+                </div>
+
+                <div class="data-grid" id="admin-services-list"></div>
+            </div>
+
+            <!-- Schedules Tab -->
+            <div class="tab-panel" id="panel-schedules">
+                <div class="panel-header">
+                    <h3>Horários Disponíveis</h3>
+                    <button class="btn-primary" onclick="toggleScheduleForm()">+ Novo Horário</button>
+                </div>
+
+                <div class="form-card hidden" id="schedule-form">
+                    <div class="form-row">
+                        <input type="date" id="new-schedule-date" class="input-dark">
+                        <select id="new-schedule-time" class="input-dark">
+                            <option value="">Selecione o horário</option>
+                            <option value="08:00">08:00</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                            <option value="18:00">18:00</option>
+                            <option value="19:00">19:00</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn-text" onclick="toggleScheduleForm()">Cancelar</button>
+                        <button class="btn-primary" onclick="addSchedule()">Adicionar Horário</button>
+                    </div>
+                </div>
+
+                <div class="data-list" id="admin-schedules-list"></div>
+            </div>
+
+            <!-- Bookings Tab -->
+            <div class="tab-panel" id="panel-bookings">
+                <div class="panel-header">
+                    <h3>Agendamentos Realizados</h3>
+                </div>
+                <div class="data-list" id="admin-bookings-list"></div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
