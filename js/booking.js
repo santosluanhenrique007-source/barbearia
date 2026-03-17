@@ -482,13 +482,23 @@ function sendToWhatsApp(appointment) {
     
     const message = `*Classic Barbershop - Confirmação de Agendamento* 💈
 
-Olá, Davi! Sou o ${appointment.client.name} estou confirmando meu agendamento:
+Olá, ${appointment.client.name}! Seu agendamento foi confirmado:
 
 ✂️ *Serviço:* ${appointment.service.name}
 📅 *Data:* ${date}
 ⏰ *Horário:* ${appointment.time}
 💰 *Valor:* ${utils.formatCurrency(appointment.service.price)}
 ⏱️ *Duração:* ${appointment.service.duration} min
+
+${appointment.client.notes ? `📝 *Observações:* ${appointment.client.notes}
+
+` : ''}`;
+
+    // Monta URL do WhatsApp
+    const whatsappUrl = `https://wa.me/55${phone}?text=${encodeURIComponent(message)}`;
+    
+    // Abre WhatsApp em nova aba imediatamente
+    window.open(whatsappUrl, '_blank');
 }
 
 // ==========================================
