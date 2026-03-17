@@ -199,7 +199,7 @@ function loadAppointments() {
 }
 
 function generateWhatsAppLink(appointment) {
-    const phone = appointment.client.phone.replace(/\D/g, '');
+    const phone = '79999193398';
     const date = new Date(appointment.date).toLocaleDateString('pt-BR');
     
     const message = `Olá ${appointment.client.name}! 
