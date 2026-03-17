@@ -482,29 +482,13 @@ function sendToWhatsApp(appointment) {
     
     const message = `*Classic Barbershop - Confirmação de Agendamento* 💈
 
-Olá, ${appointment.client.name}! Seu agendamento foi confirmado:
+Olá, Davi! Sou o ${appointment.client.name} estou confirmando meu agendamento:
 
 ✂️ *Serviço:* ${appointment.service.name}
 📅 *Data:* ${date}
 ⏰ *Horário:* ${appointment.time}
 💰 *Valor:* ${utils.formatCurrency(appointment.service.price)}
 ⏱️ *Duração:* ${appointment.service.duration} min
-
-📍 *Endereço:*
-Rua dos Barbeiros, 123
-Bairro Jardim, São Paulo - SP
-
-📞 *Contato:* (11) 99999-9999
-
-${appointment.client.notes ? `📝 *Observações:* ${appointment.client.notes}
-
-` : ''}Aguardamos você! Se precisar remarcar, é só nos chamar. 👍`;
-
-    // Monta URL do WhatsApp
-    const whatsappUrl = `https://wa.me/55${phone}?text=${encodeURIComponent(message)}`;
-    
-    // Abre WhatsApp em nova aba imediatamente
-    window.open(whatsappUrl, '_blank');
 }
 
 // ==========================================
