@@ -490,9 +490,15 @@ Olá, ${appointment.client.name}! Seu agendamento foi confirmado:
 💰 *Valor:* ${utils.formatCurrency(appointment.service.price)}
 ⏱️ *Duração:* ${appointment.service.duration} min
 
+📍 *Endereço:*
+Rua dos Barbeiros, 123
+Bairro Jardim, São Paulo - SP
+
+📞 *Contato:* (11) 99999-9999
+
 ${appointment.client.notes ? `📝 *Observações:* ${appointment.client.notes}
 
-` : ''}`;
+` : ''}Aguardamos você! Se precisar remarcar, é só nos chamar. 👍`;
 
     // Monta URL do WhatsApp
     const whatsappUrl = `https://wa.me/55${phone}?text=${encodeURIComponent(message)}`;
